@@ -1,0 +1,21 @@
+- hosts: localhost
+  vars:
+    source_key: "./.ssh/id_personal"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_personal"
+    personal: "{{ lookup('env', 'HOME') }}/personal"
+    work: "{{ lookup('env', 'HOME') }}/org"
+    source_key_work: "./.ssh/id_a2sv"
+    dest_key_work: "{{ lookup('env', 'HOME') }}/.ssh/id_a2sv" 
+    ssh_config_source: "./.ssh/config"
+    ssh_config_dest: "{{ lookup('env', 'HOME') }}/.ssh/config" 
+  pre_tasks:
+  - name: Update Apt
+    become: true
+    apt:
+      force_apt_get: true
+      update_cache: true
+      state: present
+    tags:
+      - install
+  tasks:
+    - include: tasks/ssh-setup.yml

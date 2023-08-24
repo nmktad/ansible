@@ -1,0 +1,67 @@
+- name: Ensure .ssh personal directory exists.
+  file:
+    dest: "{{ dest_key | dirname }}"
+    mode: 0700
+    state: directory
+  tags:
+    - install
+    - ssh
+- name: Ensure .ssh work directory exists.
+  file:
+    dest: "{{ dest_key_work | dirname }}"
+    mode: 0700
+    state: directory
+  tags:
+    - install
+    - ssh
+- name: Install ssh personal key
+  copy:
+    src: "{{ source_key }}"
+    dest: "{{ dest_key }}"
+    mode: 0600
+  tags:
+    - install
+    - ssh
+- name: Install ssh work key
+  copy:
+    src: "{{ source_key_work }}"
+    dest: "{{ dest_key_work }}"
+    mode: 0600
+  tags:
+    - install
+    - ssh
+- name: Add Config file to ssh directory
+  copy:
+    src: "{{ ssh_config_source }}"
+    dest: "{{ ssh_config_dest }}"
+    mode: 0600
+  tags:
+    - install
+    - ssh
+- name: Install ssh personal key public
+  copy:
+    src: "{{ source_key }}.pub"
+    dest: "{{ dest_key }}.pub"
+    mode: 0644
+  tags:
+    - install
+    - ssh
+- name: Install ssh work key public
+  copy:
+    src: "{{ source_key_work }}.pub"
+    dest: "{{ dest_key_work }}.pub"
+    mode: 0644
+  tags:
+    - install
+    - ssh
+- name: Set authorized personal key took from file
+  authorized_key:
+    user: "{{ lookup('env', 'USER') }}"
+    state: present
+    key: "{{ lookup('env', 'HOME') }}/.ssh/id_personal.pub"
+
+- name: Set authorized work key took from file
+  authorized_key:
+    user: "{{ lookup('env', 'USER') }}"
+    state: present
+    key: "{{ lookup('env', 'HOME') }}/.ssh/id_a2sv.pub"
