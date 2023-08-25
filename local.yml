@@ -18,4 +18,6 @@
     tags:
       - install
   tasks:
-    - ansible.builtin.import_tasks: tasks/ssh-setup.yml
+    - include: tasks/ssh-setup.yml
+    - include: tasks/git-setup.yml
+    - include: tasks/zsh-setup.yml

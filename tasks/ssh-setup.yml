@@ -59,7 +59,6 @@
     user: "{{ lookup('env', 'USER') }}"
     state: present
     key: "{{ lookup('env', 'HOME') }}/.ssh/id_personal.pub"
-
 - name: Set authorized work key took from file
   authorized_key:
     user: "{{ lookup('env', 'USER') }}"
