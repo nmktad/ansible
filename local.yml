@@ -5,9 +5,9 @@
     personal: "{{ lookup('env', 'HOME') }}/personal"
     work: "{{ lookup('env', 'HOME') }}/org"
     source_key_work: "./.ssh/id_a2sv"
-    dest_key_work: "{{ lookup('env', 'HOME') }}/.ssh/id_a2sv" 
+    dest_key_work: "{{ lookup('env', 'HOME') }}/.ssh/id_a2sv"
     ssh_config_source: "./.ssh/config"
-    ssh_config_dest: "{{ lookup('env', 'HOME') }}/.ssh/config" 
+    ssh_config_dest: "{{ lookup('env', 'HOME') }}/.ssh/config"
   pre_tasks:
   - name: Update Apt
     become: true
@@ -20,4 +20,3 @@
   tasks:
     - import_tasks: tasks/ssh-setup.yml
     - import_tasks: tasks/git-setup.yml
-    - import_tasks: tasks/zsh-setup.yml
