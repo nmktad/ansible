@@ -8,15 +8,6 @@
     dest_key_work: "{{ lookup('env', 'HOME') }}/.ssh/id_a2sv"
     ssh_config_source: "./.ssh/config"
     ssh_config_dest: "{{ lookup('env', 'HOME') }}/.ssh/config"
-  pre_tasks:
-  - name: Update Apt
-    become: true
-    apt:
-      force_apt_get: true
-      update_cache: true
-      state: present
-    tags:
-      - install
   tasks:
     - import_tasks: tasks/ssh-setup.yml
     - import_tasks: tasks/git-setup.yml
